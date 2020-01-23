@@ -1,0 +1,40 @@
+.flow-chart-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    li {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: powderblue;
+      position: relative;
+      font-size: 15px;
+      box-shadow: 0 0 0 4px gray;
+      .fas {
+        font-size: 20px;
+      }
+    }
+    li + li {
+      margin-left: 50px;
+    }
+    li + li::before {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 5px;
+      background-color: gray;
+      top: 0;
+      bottom: 0;
+      left: -50px;
+      margin: auto;
+    }
+    .is-paid {
+        background-color: rgb(79, 203, 219);
+    }
+  }

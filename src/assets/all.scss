@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/functions";
+@import "./helpers/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "./_dashboard";
+@import "./flowChartList";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:300,400&display=swap');
+
+html,
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: #e0e1e8;
+}

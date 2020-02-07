@@ -187,6 +187,7 @@ export default {
         vm.status.loadingItem = '';
         vm.getCart();
         $('#productModal').modal('hide');
+        vm.$bus.$emit('message:push', '成功加入購物車', 'success');
       });
     },
     getCart() {
@@ -197,6 +198,7 @@ export default {
         // eslint-disable-next-line
         // console.log("Cart:", response.data.data);
         vm.cart = response.data.data;
+        vm.$bus.$emit('updataCart');
         vm.isLoading = false;
       });
     },

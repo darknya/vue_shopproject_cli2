@@ -20,9 +20,12 @@
                   選購 {{item}} {{product.unit}}
                 </option>
               </select>
-              <a href="shoppingCart-checkout.html" class="btn btn-primary">
-                <i class="fa fa-cart-plus" aria-hidden="true"></i> 加入購物車
-              </a>
+              <button type="button" class="btn btn-primary"
+                @click="addtoCart(product.id, product.num)">
+                  <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                  <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === product.id"></i>
+                  加到購物車
+              </button>
             </div>
           </div>
         </div>
@@ -47,6 +50,9 @@ export default {
     return {
       isLoading: false,
       product: {},
+      status: {
+        loadingItem: '',
+      },
     };
   },
   methods: {
@@ -59,6 +65,29 @@ export default {
         vm.product = response.data.product;
         vm.product.num = 1;
         $('#productModal').modal('show');
+      });
+    },
+    getCart() {
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      const vm = this;
+      vm.isLoading = true;
+      this.$http.get(api).then((response) => {
+        vm.cart = response.data.data;
+        vm.isLoading = false;
+        vm.$bus.$emit('updataCart');
+      });
+    },
+    addtoCart(id, qty = 1) {
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      const vm = this;
+      vm.status.loadingItem = id;
+      const cart = {
+        product_id: id,
+        qty,
+      };
+      this.$http.post(api, { data: cart }).then(() => {
+        vm.status.loadingItem = '';
+        vm.getCart();
       });
     },
   },

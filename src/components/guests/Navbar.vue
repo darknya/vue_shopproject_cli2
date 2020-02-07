@@ -24,7 +24,7 @@
         <div @click="navActive = ''">
           <router-link class="nav-link" to="/guest/customer_shopingcart">
             <i class="fas fa-shopping-bag position-relative">
-              <span class="cart-num" v-if="cartnum !== 0">{{ getCart() }}</span>
+              <span class="cart-num" v-if="cartnum">{{ cartnum }}</span>
             </i>
           </router-link>
         </div>
@@ -48,15 +48,16 @@ export default {
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
         // eslint-disable-next-line
-        console.log("Cart:", response.data.data.carts.length);
+        // console.log("Cart:", response.data.data.carts.length);
         vm.cartnum = response.data.data.carts.length;
         vm.isLoading = false;
       });
-      return vm.cartnum;
     },
   },
   created() {
-    this.getCart();
+    const vm = this;
+    vm.getCart();
+    vm.$bus.$on('updataCart', () => vm.getCart());
   },
 };
 </script>

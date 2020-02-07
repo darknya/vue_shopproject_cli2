@@ -4,7 +4,7 @@
     <div>
       <h5 class="text-center">您的購物車</h5>
     </div>
-    <div v-if="cart.carts.length == 0">
+    <div v-if="!cart.carts.length">
       <p>喔呀!是空的喔!</p>
     </div>
     <div v-else>
@@ -169,6 +169,7 @@ export default {
         // console.log("Cart:", response.data.data);
         vm.cart = response.data.data;
         vm.isLoading = false;
+        vm.$bus.$emit('updataCart');
       });
     },
     removeCartItem(id) {

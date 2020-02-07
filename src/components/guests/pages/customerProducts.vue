@@ -125,6 +125,7 @@ export default {
         // eslint-disable-next-line
         // console.log("Cart:", response.data.data);
         vm.cart = response.data.data;
+        vm.$bus.$emit('updataCart');
         vm.isLoading = false;
       });
     },
